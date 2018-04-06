@@ -74,29 +74,25 @@ public class HandPoker extends Hand {
 		return HSP;
 	}
 
-	private boolean isRoyalFlush() {
+	public boolean isRoyalFlush() {
 		boolean bIsRoyalFlush = false;
-		if (isStraightFlush() && super.getCards().get(0).geteRank() == eRank.ACE
-				&& super.getCards().get(1).geteRank() == eRank.KING) {
+		if (isStraightFlush() && super.getCards().get(0).geteRank() == eRank.ACE && super.getCards().get(1).geteRank() == eRank.KING) {
 			bIsRoyalFlush = true;
 			HSP.seteHandStrength(eHandStrength.RoyalFlush);
-
 		}
 		return bIsRoyalFlush;
 	}
 
 	public boolean isStraightFlush() {
 		boolean bisStraightFlush = false;
-
-		if (isFlush() && isStraight()) {
+		if (isFlush() && isStraight())
+		{
 			bisStraightFlush = true;
 			HSP.seteHandStrength(eHandStrength.StraightFlush);
-
 		}
 		return bisStraightFlush;
 	}
 
-	// TODO : Implement this method
 	public boolean isFourOfAKind() {
 		boolean bisFourOfAKind = false;
 
@@ -114,8 +110,6 @@ public class HandPoker extends Hand {
 		}
 		return bisFourOfAKind;
 	}
-
-	// TODO : Implement this method
 	public boolean isFullHouse() {
 		boolean bisFullHouse = false;
 
@@ -153,20 +147,19 @@ public class HandPoker extends Hand {
 		}
 
 		if (iSuitCnt == iCardCnt) {
-			bisFlush = true;
-
 			HandScorePoker HSP = (HandScorePoker) this.getHS();
 			HSP.seteHandStrength(eHandStrength.Flush);
-			HSP.setHiCard(super.getCards().get(0));
+			int iGetCard = this.getCRC().get(0).getiCardPosition();
+			HSP.setHiCard(this.getCards().get(iGetCard));
 			HSP.setLoCard(null);
-			HSP.setKickers(FindTheKickers(this.getCRC()));
-			HSP.getKickers().remove(0);
+			HSP.setKickers(null);
 			this.setHS(HSP);
+			bisFlush = true;
 		}
-
 		else
+		{
 			bisFlush = false;
-
+		}
 		return bisFlush;
 	}
 
@@ -180,9 +173,7 @@ public class HandPoker extends Hand {
 			a = 1;
 		}
 		for (; a < super.getCards().size() - 1; a++) {
-			if (super.getCards().get(a).geteRank().getiRankNbr() - 1 != super.getCards().get(a + 1).geteRank()
-					.getiRankNbr()) {
-
+			if (super.getCards().get(a).geteRank().getiRankNbr() - 1 != super.getCards().get(a + 1).geteRank().getiRankNbr()) {
 				bisStraight = false;
 			}
 		}
